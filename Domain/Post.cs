@@ -10,7 +10,9 @@ namespace Domain
         public string Subtitle { get; set; }
         public Author Author { get; set; }
         public int AuthorId { get; set; }
-        public IList<Comment> Comments { get; set; }
+		public string ImageUrl { get; set; }
+		public int? CategoryId { get; set; }
+		public IList<Comment> Comments { get; set; }
         public Post()
         {
             Comments = new List<Comment>();

@@ -19,6 +19,7 @@ namespace Repository
 			ConfigureAuthor(modelBuilder);
 			ConfigureComment(modelBuilder);
 			ConfigureSideBar(modelBuilder);
+			ConfigureCategory(modelBuilder);
 		}
 
         private void ConfigurePost(ModelBuilder modelBuilder)
@@ -29,6 +30,7 @@ namespace Repository
                 model.Property(x => x.Body);
                 model.Property(x => x.Subtitle);
                 model.Property(x => x.Title);
+				model.Property(x => x.ImageUrl);
 
                 /*model.HasMany(x => x.Comments)
                     .WithOne()
@@ -39,8 +41,32 @@ namespace Repository
                     .WithMany()
                     .HasForeignKey(x => x.AuthorId)
                     .OnDelete(DeleteBehavior.Cascade);
+
+				model.HasOne<Category>()
+					.WithMany(x => x.Posts)
+					.HasForeignKey(x => x.CategoryId)
+					.IsRequired(false)
+					.OnDelete(DeleteBehavior.SetNull);
+					
             });
         }
+
+		private void ConfigureCategory (ModelBuilder modelBuider)
+		{
+			modelBuider.Entity<Category>(model => {
+				model.HasKey(x => x.Id);
+
+				model.Property(x => x.Name);
+				model.Property(x => x.Description);
+
+				model.HasMany(x => x.Posts)
+					.WithOne()
+					.HasForeignKey(x => x.CategoryId)
+					.IsRequired(false)
+					.OnDelete(DeleteBehavior.SetNull);
+
+			});
+		}
         private void ConfigureAuthor(ModelBuilder modelBuilder)
         {
 

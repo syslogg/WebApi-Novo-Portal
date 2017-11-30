@@ -36,10 +36,30 @@ namespace Web.Controllers
 
 		// POST api/post
 		[HttpPost]
-		public async Task Post([FromBody] Post value)
+		public async Task<IActionResult> Post([FromBody] Post value)
 		{
 			_uow.PostRepository.Add(value);
 			await _uow.CommitAsync();
+			return Ok(value);
+		}
+
+		// POST addComment api/post/1/comment/
+		[HttpPost(template: "{id}/comment")]
+		public async Task<IActionResult> AddComment(int id ,[FromBody] Comment cmm)
+		{
+			cmm.PostId = id;
+			_uow.CommentRepository.Add(cmm);
+			await _uow.CommitAsync();
+			return Ok(cmm);
+		}
+
+		[HttpPut("{id}")]
+		public async Task<IActionResult> Update (int id, [FromBody] Post post)
+		{
+			post.Id = id;
+			_uow.PostRepository.Update(post);
+			await _uow.CommitAsync();
+			return Ok(post);
 		}
 
 	}

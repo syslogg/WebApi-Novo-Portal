@@ -28,8 +28,8 @@ namespace Web
             services.AddMvc();
 			services.AddCors();
 
-			services.AddDbContext<DbTIContext>(options => options.UseSqlServer(@"Server=HENDY-PC\SQLEXPRESS;Database=db_ti;User Id=sa;Password=qwe123;"), ServiceLifetime.Singleton);
-			services.AddSingleton<IUnitOfWork, UnitOfWork>();
+			services.AddDbContext<DbTIContext>(options => options.UseSqlServer(@"Server=HENDY-PC\SQLEXPRESS;Database=db_ti;User Id=sa;Password=qwe123;"), ServiceLifetime.Scoped);
+			services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,7 +39,7 @@ namespace Web
             {
                 app.UseDeveloperExceptionPage();
             }
-			app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader());
+			app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod());
             app.UseMvc();
         }
     }

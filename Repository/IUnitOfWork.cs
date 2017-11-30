@@ -12,6 +12,7 @@ namespace Repository
 		IAuthorRepository AuthorRepository { get; }
 		ICommentRepository CommentRepository { get; }
 		ISidebarFeatureRepository SidebarFeatureRepository { get; }
+		ICategoryRepository CategoryRepository { get; }
 
 		void Commit();
 

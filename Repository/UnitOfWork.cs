@@ -63,11 +63,25 @@ namespace Repository
 		{
 			get
 			{
-				if(_sidebarFeatureRepository == null)
+				if (_sidebarFeatureRepository == null)
 				{
 					_sidebarFeatureRepository = new SidebarFeatureRepository(_context);
 				}
 				return _sidebarFeatureRepository;
+			}
+		}
+
+		private ICategoryRepository _categoryRepository = null;
+
+		public ICategoryRepository CategoryRepository
+		{
+			get
+			{
+				if (_categoryRepository == null)
+				{
+					_categoryRepository = new CategoryRepository(_context);
+				}
+				return _categoryRepository;
 			}
 		}
 
