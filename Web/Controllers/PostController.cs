@@ -62,5 +62,14 @@ namespace Web.Controllers
 			return Ok(post);
 		}
 
+		[HttpDelete("{id}")]
+		public IActionResult Delete (int id)
+		{
+			var post = _uow.PostRepository.Get(id);
+			_uow.PostRepository.Delete(post);
+			_uow.Commit();
+			return Ok(post);
+		}
+
 	}
 }
